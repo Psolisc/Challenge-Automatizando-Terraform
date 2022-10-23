@@ -23,12 +23,18 @@ pipeline {
         } 
         
         stage('Terraform Plan') {
+            when{
+                branch "dev"
+            }
             steps {
                 powershell 'terraform plan'
             }
         } 
 
         stage('Terraform Apply') {
+             when{
+                branch "main"
+            }
             steps {
                 powershell 'terraform apply -auto-approve'
             }
