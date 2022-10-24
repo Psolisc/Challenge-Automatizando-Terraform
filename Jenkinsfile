@@ -2,6 +2,10 @@ pipeline {
     agent {
         label 'terraform-agent'
     }
+
+    options {
+        skipDefaultCheckout(true)  
+    }
   
     environment {
         AWS_ACCESS_KEY_ID = credentials('AWS_Access_key')
