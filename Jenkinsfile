@@ -2,6 +2,10 @@ pipeline {
     agent {
         label 'terraform-agent'
     }
+
+    options {
+        skipDefaultCheckout(true)  
+    }
   
     environment {
         AWS_ACCESS_KEY_ID = credentials('AWS_Access_key')
@@ -10,15 +14,21 @@ pipeline {
     }
   
     stages{
+        stage('Checkout scm') {
+            steps {
+                checkout scm
+            }
+        } 
+
         stage('Inicializar Terraform') {
             steps {
-                powershell 'terraform init'
+                bat 'terraform init'
             }
         } 
 
         stage('Visualizar Terraform Providers') {
             steps {
-                powershell 'terraform providers'
+                bat 'terraform providers'
             }
         } 
         
@@ -27,16 +37,22 @@ pipeline {
                 branch "dev"
             }
             steps {
-                powershell 'terraform plan'
+                bat 'terraform plan'
             }
         } 
 
         stage('Terraform Apply') {
-             when{
+            when{
                 branch "main"
             }
             steps {
-                powershell 'terraform apply -auto-approve'
+                bat 'terraform apply -auto-approve'
+            }
+        }
+
+        stage('Terraform Graph') {
+            steps {
+                bat 'terraform graph | dot -Tsvg > graph.svgt'
             }
         } 
     }

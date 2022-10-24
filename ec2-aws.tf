@@ -6,4 +6,13 @@ resource "aws_instance" "my-webserver" {
     tags = {
         Name = "demo-terraform"
     }
+
+    network_interface {
+      network_interface_id = aws_network_interface.foo.id
+      device_index         = 0 
+    }
+
+    credit_specification {
+      cpu_credits = "unlimited"
+    }
 }
