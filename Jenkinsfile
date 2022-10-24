@@ -32,11 +32,14 @@ pipeline {
         } 
 
         stage('Terraform Apply') {
-             when{
+            when{
                 branch "main"
             }
             steps {
                 powershell 'terraform apply -auto-approve'
+            }
+            steps {
+                powershell 'terraform graph | dot -Tsvg > graph.svg'
             }
         } 
     }
