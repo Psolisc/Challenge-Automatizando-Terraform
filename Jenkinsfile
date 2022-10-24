@@ -14,6 +14,12 @@ pipeline {
     }
   
     stages{
+        stage('checkout scm') {
+            steps {
+                checkout scm
+            }
+        } 
+
         stage('Inicializar Terraform') {
             steps {
                 powershell 'terraform init'
