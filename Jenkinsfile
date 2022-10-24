@@ -22,13 +22,13 @@ pipeline {
 
         stage('Inicializar Terraform') {
             steps {
-                powershell 'terraform init'
+                bat 'terraform init'
             }
         } 
 
         stage('Visualizar Terraform Providers') {
             steps {
-                powershell 'terraform providers'
+                bat 'terraform providers'
             }
         } 
         
@@ -37,7 +37,7 @@ pipeline {
                 branch "dev"
             }
             steps {
-                powershell 'terraform plan'
+                bat 'terraform plan'
             }
         } 
 
@@ -46,13 +46,13 @@ pipeline {
                 branch "main"
             }
             steps {
-                powershell 'terraform apply -auto-approve'
+                bat 'terraform apply -auto-approve'
             }
         }
 
         stage('Terraform Graph') {
             steps {
-                powershell 'terraform graph | dot -Tsvg > graph.svgt'
+                bat 'terraform graph | dot -Tsvg > graph.svgt'
             }
         } 
     }
