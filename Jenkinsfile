@@ -55,11 +55,5 @@ pipeline {
                 bat 'terraform apply -auto-approve'
             }
         }
-
-        stage('Terraform Graph') {
-            steps {
-                bat 'terraform graph | dot -Tsvg > graph.svgt'
-            }
-        } 
     }
 }  
