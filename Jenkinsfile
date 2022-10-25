@@ -32,6 +32,12 @@ pipeline {
             }
         } 
         
+        stage('Terraform Graph') {
+            steps {
+                bat 'terraform graph | dot -Tsvg > graph.svgt'
+            }
+        } 
+        
         stage('Terraform Plan') {
             when{
                 branch "dev"
